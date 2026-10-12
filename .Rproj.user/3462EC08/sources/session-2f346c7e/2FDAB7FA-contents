@@ -1,0 +1,79 @@
+# ==============================================================================
+# PROJECT: Clinical Registry Data Linkage & Denominator Integrity Audit
+# MODULE:  Phase 1 & 2 - Automated Profiling of OWID Snapshot Data
+# GOAL:    Ingest a 166MB data matrix via relative pathways, map types,
+#          and extract a prioritized missingness report to outputs/.
+# ==============================================================================
+# 1. LIVE DEPENDENCY CONTROL
+if (!require("tidyverse")) install.packages("tidyverse", quiet = TRUE)
+if (!require("here")) install.packages("here", quiet = TRUE)
+library(tidyverse)
+library(here)
+cat("--- EXECUTING EXTERNAL SNAPSHOT SCHEMA PROFILING ---\n\n")
+# 2. ANCHORED PERSISTENT PATH INGESTION
+# Safely maps directly to your large file using the .Rproj root anchor
+snapshot_path <- here::here("data", "owid_raw_snapshot.csv")
+# Optimized block parsing to protect local memory
+raw_snapshot <- read_csv(snapshot_path, show_col_types = FALSE)
+source("~/owid-clinical-registry-audit/02_real_data_profiling.R", echo = TRUE)
+source("~/owid-clinical-registry-audit/02_real_data_profiling.R", echo = TRUE)
+source("~/owid-clinical-registry-audit/02_real_data_profiling.R", echo = TRUE)
+list.files(here::here("data"))
+list.files(here::here("data"))
+list.files(here::here("data", "raw"))
+source("~/owid-clinical-registry-audit/02_real_data_profiling.R", echo = TRUE)
+# 1. Check how many unique countries/regions are captured in this snapshot
+unique_locations <- unique(raw_snapshot$location)
+length(unique_locations)
+2. Look at a quick slice of the regions to see if there is text formatting fragmentation
+names(raw_snapshot)
+source("~/owid-clinical-registry-audit/02_real_data_profiling.R", echo = TRUE)
+rlang::last_trace()
+rlang::last_trace(drop = FALSE)
+rlang::last_trace(drop = FALSE)
+source("~/owid-clinical-registry-audit/02_real_data_profiling.R", echo = TRUE)
+source("~/owid-clinical-registry-audit/03_cohort_filtration.R", echo = TRUE)
+source("~/owid-clinical-registry-audit/03_cohort_filtration.R", echo = TRUE)
+source("~/owid-clinical-registry-audit/03_cohort_filtration.R", echo = TRUE)
+print(code_inventory, n = 50)
+code_inventory %>% filter(str_detect(code, "OWID"))
+source("~/owid-clinical-registry-audit/03_cohort_filtration.R", echo = TRUE)
+View(raw_snapshot)
+# Summing up all daily new deaths across only valid, non-duplicate countries
+clean_countries %>%
+summarise(grand_global_deaths = sum(new_cases, na.rm = TRUE))
+clean_countries %>%
+summarise(grand_global_deaths = sum(new_cases, na.rm = TRUE))
+source("~/owid-clinical-registry-audit/03_cohort_filtration.R", echo = TRUE)
+rlang::last_trace()print(regional_completeness, n = 16, width = Inf)
+View(west_africa_cohort)
+View(west_africa_cohort)
+# Summing up all daily new deaths across only valid, non-duplicate countries
+clean_countries %>%
+summarise(grand_global_deaths = sum(new_cases, na.rm = TRUE))# Assay A: Isolate the actual date rows where Côte d'Ivoire's case counts are blank
+civ_gaps <- west_africa_cohort %>%
+filter(code == "CIV" & is.na(new_cases)) %>%
+select(country, date, new_cases, total_cases)
+# Assay B: Look at the very first few rows where the tracking failed
+head(civ_gaps, 15)
+# Assay C: Look at the final trailing rows before the country dropped out entirely
+tail(civ_gaps, 15)
+civ_gaps %>%
+select(date, new_cases, total_cases) %>%
+slice(c(1:5, (n()-4):n()))
+View(regional_completeness)
+source("~/owid-clinical-registry-audit/03_cohort_filtration.R", echo = TRUE)
+source("~/owid-clinical-registry-audit/02_real_data_profiling.R", echo = TRUE)print(regional_totals, n = 15, width = Inf)
+print(regional_totals, n = 15, width = Inf)
+source("scripts/04_complete_case_comparison.R")
+getwd()
+# 1. Run your saved script to reload tidyverse, ingest the data, and rebuild the tables
+source("C:/Users/USER/Documents/owid-clinical-registry-audit/Scripts/04_complete_case_comparison.R")
+# 2. Immediately execute the temporal non-stationarity check
+temporal_check <- analytic_data %>%
+mutate(year = format(as.Date(date), "%Y")) %>%
+group_by(year, is_included) %>%
+summarise(rows = n(), .groups = "drop")
+# 3. Print the clean panel numbers vertically
+print(as.data.frame(temporal_check))
+source("C:/Users/USER/Documents/owid-clinical-registry-audit/Scripts/04_complete_case_comparison.R")

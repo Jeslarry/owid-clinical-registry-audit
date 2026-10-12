@@ -1,0 +1,13 @@
+==============================================================================
+REGIONAL PUBLIC HEALTH REGISTRY AUDIT MANIFEST
+GENERATED ON: 2026-06-06 15:55:06.813511
+==============================================================================
+Total Clean West African Records Ingested: 35763
+Total Tracked Regional Jurisdictions:     16
+------------------------------------------------------------------------------
+CRITICAL STRUCTURAL OBSERVATIONS:
+- Base Timeline Span: 2020-01-01 to 2026-04-26 (2308 expected rows)
+- 14 of 16 regional nations exhibit a structurally complete temporal panel.
+- Côte d'Ivoire (CIV) exhibits severe truncation, halting on 2023-02-20.
+- Tiered missingness (115 vs 346 days) indicates variable batch transmission protocols.
+==============================================================================

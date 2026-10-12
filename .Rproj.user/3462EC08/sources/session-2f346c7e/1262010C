@@ -1,0 +1,24 @@
+{
+    "id": "1262010C",
+    "path": "~/owid-clinical-registry-audit/Scripts/01_owid_ingestion_audit.R",
+    "project_path": "Scripts/01_owid_ingestion_audit.R",
+    "type": "r_source",
+    "hash": "3000808298",
+    "contents": "",
+    "dirty": false,
+    "created": 1785321390788.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1779814947,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1779814947,
+    "read_only": false,
+    "read_only_alternatives": []
+}

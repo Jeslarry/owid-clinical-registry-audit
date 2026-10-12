@@ -1,0 +1,13 @@
+
+# Large OWID datasets — keep locally, not in Git
+data/raw/owid_raw_snapshot.csv
+data/processed/owid_clean_countries.csv
+
+# R session history and local RStudio settings
+.Rhistory
+.RData
+.Rproj.user/
+
+# Operating system files
+.DS_Store
+Thumbs.db

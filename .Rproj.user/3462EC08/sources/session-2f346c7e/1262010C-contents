@@ -1,0 +1,57 @@
+# ==============================================================================
+# PROJECT: OWID COVID-19 Data Quality & Integrity Audit
+# MODULE: 01_Data_Ingestion_and_Initialization
+# PURPOSE: Establish reproducible environment, ingest raw registry, and evaluate 
+#          initial data completeness under ALCOA+ principles.
+# AUTHOR: Data Operations Specialist
+# DATE: May 2026
+# ==============================================================================
+
+# 1. Environment Initialization ----
+if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
+pacman::p_load(tidyverse, here, janitor)
+
+# Enforce relative directory safety for an auditable trail
+dir.create(here("data", "raw"), showWarnings = FALSE, recursive = TRUE)
+dir.create(here("data", "processed"), showWarnings = FALSE, recursive = TRUE)
+
+# 2. Data Ingestion (Traceable & Local Hard-Drive Anchor) ----
+raw_data_path <- here("data", "raw", "owid_raw_snapshot.csv")
+
+# Fail-safe check for your manual Windows File Explorer placement
+if (!file.exists(raw_data_path) || file.info(raw_data_path)$size == 0) {
+  stop("CRITICAL STOP: 'owid_raw_snapshot.csv' is missing or empty in data/raw/. Please ensure your 166MB download is dropped into that folder before running.")
+}
+
+message(">>> Ingesting raw local global registry snapshot...")
+raw_audit_data <- read_csv(raw_data_path, guess_max = 10000) %>% clean_names()
+
+# 3. Targeted Cohort Selection (11-Country Global Panel) ----
+selected_countries <- c(
+  "Nigeria", "United Kingdom", "United States", "Sweden", "Finland",
+  "Ghana", "Kenya", "South Africa", "Japan", "India", "Brazil"
+)
+
+# 4. Data Integrity & Completeness Audit (Using verified 'country' header) ----
+message(">>> Isolating 11 target cohorts and executing ALCOA+ completeness audit...")
+integrity_summary <- raw_audit_data %>%
+  filter(country %in% selected_countries) %>%   # Fixed to match your file header
+  group_by(country) %>%                        # Fixed to match your file header
+  summarize(
+    total_observations = n(),
+    missing_total_cases = sum(is.na(total_cases)),
+    missing_new_deaths = sum(is.na(new_deaths)),
+    missing_icu_patients = sum(is.na(icu_patients)),
+    cases_completeness_pct = ((total_observations - missing_total_cases) / total_observations) * 100,
+    deaths_completeness_pct = ((total_observations - missing_new_deaths) / total_observations) * 100,
+    icu_completeness_pct = ((total_observations - missing_icu_patients) / total_observations) * 100,
+    .groups = "drop"
+  ) %>%
+  arrange(desc(cases_completeness_pct))
+
+# 5. Save Verified Artifacts ----
+write_csv(integrity_summary, here("data", "processed", "target_cohort_audit.csv"))
+message(">>> SUCCESS: Phase 1 Ingestion Complete. Data audit log saved to data/processed/target_cohort_audit.csv")
+
+# Print the 11-row panel directly to your console
+print(integrity_summary)
